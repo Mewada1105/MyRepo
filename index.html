@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Employee Details Form</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+    }
+    form {
+        max-width: 400px;
+        margin: 20px auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+    }
+    label {
+        display: block;
+        margin-bottom: 5px;
+    }
+    input, select {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+    span.error {
+        color: red;
+        font-size: 12px;
+    }
+    input[type="radio"] {
+        margin-right: 5px;
+    }
+    input[type="submit"] {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+    input[type="submit"]:hover {
+        background-color: #45a049;
+    }
+</style>
+</head>
+<body>
+<form id="employeeForm">
+    <label for="empid">Employee ID:</label>
+    <input type="text" id="empid" name="empid" required>
+    <span class="error" id="spanEmpid"></span>
+
+    <label for="empname">Employee Name:</label>
+    <input type="text" id="empname" name="empname" required>
+    <span class="error" id="spanEmpname"></span>
+
+    <label for="age">Age:</label>
+    <input type="text" id="age" name="age" required>
+    <span class="error" id="spanAge"></span>
+
+    <label>Gender:</label>
+    <input type="radio" id="male" name="gender" value="male" required>
+    <label for="male">Male</label>
+    <input type="radio" id="female" name="gender" value="female" required>
+    <label for="female">Female</label>
+    <span class="error" id="spanGender"></span>
+
+    <label for="designation">Designation:</label>
+    <input type="text" id="designation" name="designation" required>
+    <span class="error" id="spanDesignation"></span>
+
+    <label for="salary">Salary:</label>
+    <input type="text" id="salary" name="salary" required>
+    <span class="error" id="spanSalary"></span>
+
+    <label for="location">Location:</label>
+    <select id="location" name="location" required>
+        <option value="">Select location</option>
+        <option value="Ahmedabad">Ahmedabad</option>
+        <option value="Calcutta">Calcutta</option>
+        <option value="Delhi">Delhi</option>
+        <option value="Mumbai">Mumbai</option>
+    </select>
+    <span class="error" id="spanLocation"></span>
+
+    <label for="email">Email ID:</label>
+    <input type="email" id="email" name="email" required>
+    <span class="error" id="spanEmail"></span>
+
+    <label for="dateOfJoining">Date of Joining:</label>
+    <input type="text" id="dateOfJoining" name="dateOfJoining" placeholder="DD-MM-YYYY" required>
+    <span class="error" id="spanDateOfJoining"></span>
+
+    <label for="contactNumber">Contact Number:</label>
+    <input type="text" id="contactNumber" name="contactNumber" required>
+    <span class="error" id="spanContactNumber"></span>
+
+    <input type="submit" value="Submit">
+</form>
+
+<script>
+    document.getElementById('employeeForm').addEventListener('submit', function(event) {
+        var isValid = true;
+
+        // Reset errors
+        var errorFields = document.querySelectorAll('span.error');
+        errorFields.forEach(function(error) {
+            error.textContent = '';
+        });
+
+        // Employee ID validation
+        var empId = document.getElementById('empid').value;
+        if (!/^\w{5,}$/.test(empId)) {
+            document.getElementById('spanEmpid').textContent = 'Employee ID should be at least 5 characters long';
+            isValid = false;
+        }
+
+        // Age validation
+        var age = document.getElementById('age').value;
+        if (isNaN(age) || age <= 0) {
+            document.getElementById('spanAge').textContent = 'Age should be a number and greater than zero';
+            isValid = false;
+        }
+
+        // Email validation
+        var email = document.getElementById('email').value;
+        if (!/\S+@\S+\.\S+/.test(email)) {
+            document.getElementById('spanEmail').textContent = 'Email ID should be in proper format';
+            isValid = false;
+        }
+
+        // Date of Joining validation
+        var dateOfJoining = document.getElementById('dateOfJoining').value;
+        if (!/^\d{2}-\d{2}-\d{4}$/.test(dateOfJoining)) {
+            document.getElementById('spanDateOfJoining').textContent = 'Date of Joining should be in format DD-MM-YYYY';
+            isValid = false;
+        }
+
+        if (!isValid) {
+            event.preventDefault(); // Prevent form submission if validation fails
+        }
+    });
+</script>
+</body>
+</html>
